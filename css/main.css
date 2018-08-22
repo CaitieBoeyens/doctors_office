@@ -1,0 +1,125 @@
+/* 
+
+COLOURS
+
+BLUE > #5a9794ff
+ORANGE > #e74424ff
+CREAM > #f7f1e6ff 
+
+FONTS
+
+font-family: 'Quicksand', sans-serif;
+font-family: 'Open Sans', sans-serif; 
+
+*/
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    /* background-image: url(../assets/pattern.svg);
+    background-repeat: repeat;
+    background-size: 40%; */
+
+    background: #ebebeb;
+    height: 100vh;
+}
+
+.navbar {
+    background-color: #ffffff00;
+}
+
+.is-blue {
+    background-color: #5a9794ff !important;
+}
+
+.is-orange {
+    background-color: #e74424ff !important;
+}
+
+h1 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    color: #f7f1e6ff;
+    font-size: 2rem;
+}
+
+#logo {
+    width: 100%;
+    max-height: 100px;
+}
+
+#user-icon {
+    width: 100%;
+    max-height: 100px;
+    margin-top: 2.5rem;
+}
+
+.brand-text {
+    margin-top: 2rem;
+}
+
+.is-blue-nav {
+    background-image: linear-gradient(
+        to bottom,
+        #5a9794ff,
+        #5a9794ff 75%,
+        #ffffff00 75%,
+        #ffffff00
+    );
+}
+
+.main-con {
+    margin-top: 2em;
+}
+
+.is-shadowless {
+    box-shadow: none;
+}
+
+.orange-btn {
+    background: #e74424ff;
+    border: #e74424ff;
+}
+
+.has-text-orange {
+    color: #e74424ff !important;
+}
+
+.person-icon {
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+    margin-bottom: 1em;
+    margin-top: 1.5em;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: white;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #dfdfdf;
+}
+
+.floating-btn {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    box-shadow: 0 6px 10px 0 #0000003f;
+    transition: all 0.1s ease-in-out;
+    position: fixed;
+    right: 50px;
+    bottom: 70px;
+    z-index: 1000;
+    padding-top: 15px;
+}
+
+.floating-btn:hover {
+    box-shadow: 0 6px 14px 0 rgba(102, 102, 102, 0.37);
+    transform: scale(1.1);
+}

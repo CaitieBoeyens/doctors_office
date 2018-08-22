@@ -1,0 +1,8 @@
+.appointments {
+    line-height: 3;
+}
+
+.all-appointments-block {
+    max-height: 600px;
+    overflow-y: scroll;
+}
