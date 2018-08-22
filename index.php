@@ -1,5 +1,5 @@
 <?php
 
-    header('Location: /doctors_office/pages/home.php');
+    header('Location: /doctors_office/pages/login.php');
 
 ?>

@@ -14,6 +14,9 @@
     </head>
     <body>
         <?php include __DIR__.'/../fragments/navigation.php'; ?>
+        <?php include __DIR__.'/../fragments/appointment-form.php'; ?>
+        <?php include __DIR__.'/../fragments/patient-form.php'; ?>
+
         <div class="main-con container">
             <div class="columns">
                 <div class="column is-three-fifths">
@@ -50,40 +53,7 @@
                                     </div>
                                 </article>
                             </div>
-                            <div class="box">
-                                <article class="media">
-                                    <figure class="media-left">
-                                        <p class="image is-128x128">
-                                            <img src="../assets/user_placeholder.svg">
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <h2 class="subtitle">Doctor Name</h1>
-                                        <p> <strong>Specialisation:</strong>  </p>
-                                        <p> <strong>Rooms: </strong>  </p>
-                                    </div>
-                                    <div class="media-right">
-                                        <a class="button is-rounded"  href='doctor.php'>See more</a>
-                                    </div>
-                                </article>
-                            </div>
-                            <div class="box">
-                                <article class="media">
-                                    <figure class="media-left">
-                                        <p class="image is-128x128">
-                                            <img src="../assets/user_placeholder.svg">
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <h2 class="subtitle">Doctor Name</h2>
-                                        <p> <strong>Specialisation:</strong>  </p>
-                                        <p> <strong>Rooms: </strong>  </p>
-                                    </div>
-                                    <div class="media-right">
-                                        <a class="button is-rounded"  href='doctor.php'>See more</a>
-                                    </div>
-                                </article>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -142,24 +112,7 @@
                                             <td>Dr Smith</td>
                                             <td>Floor 1 Room 2</td>
                                         </tr>
-                                        <tr>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>Dr Smith</td>
-                                            <td>Floor 1 Room 2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>Dr Smith</td>
-                                            <td>Floor 1 Room 2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>Dr Smith</td>
-                                            <td>Floor 1 Room 2</td>
-                                        </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -167,7 +120,7 @@
                     </div>
                     <div class="columns">
                         <div class="column is-half">
-                            <a href="../pages/new_appointment.php">
+                            <a onclick="modalToggle('appointment')">
                                 <figure class="has-text-centered">
                                     <p class="image plus">
                                         <img src="../assets/plus.svg">
@@ -181,7 +134,7 @@
                             </a>
                         </div>
                         <div class="column is-half">
-                            <a href="../pages/new_patient.php">
+                            <a onclick="modalToggle('patient')">
                                 <figure class="has-text-centered">
                                     <p class="image plus">
                                         <img src="../assets/plus.svg">
@@ -201,5 +154,11 @@
             </div>
         
         </div>
+        <script>
+            function modalToggle(modalName) {
+            var element = document.getElementById(`${modalName}-modal`);
+            element.classList.toggle("is-active");
+            }
+        </script>
     </body>
 </html>
