@@ -32,13 +32,49 @@
             $this->pdo = null;
         }
 
+        public function getDoctors(){
+            $this -> connect();
+
+            $sql = "SELECT doctors.first_name as doctor_name,
+                    doctors.last_name as doctor_surname, 
+                    doctors.img_path, doctors.specialisation, doctors.id 
+                    FROM doctors";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->execute();
+            $doctors = $statement->fetchAll();
+            
+            /* foreach ($doctors as $doctor){
+
+                $sql = "SELECT rooms.room_num
+                    FROM rooms 
+                    INNER JOIN doctors 
+                    ON rooms.doc_id = doctors.id
+                    WHERE doctors.id = $doctor[id]";
+
+                $statement = $this->pdo->prepare($sql);
+                $statement->execute();
+
+                $roomResults = $statement->fetchAll();
+                
+                $rooms = array();
+                foreach ($roomResults as $roomResult) {
+                    array_push($rooms, $roomResult['room_num']);
+                }
+                
+            } */
+
+            $this->disconnect();
+            return $doctors;
+        }
+
         public function getDoctorDetails($id) {
 
             $this -> connect();
 
             $sql = "SELECT doctors.first_name as doctor_name,
                     doctors.last_name as doctor_surname, 
-                    doctors.img_path,
+                    doctors.img_path, doctors.specialisation, doctors.id
                     FROM doctors
                     WHERE doctors.id = :id;";
 
@@ -68,6 +104,256 @@
             $this->disconnect();
             return $doctor;
 
+        }
+
+        public function getPatients(){
+            $this -> connect();
+
+            $sql = "SELECT patients.name as patient_name, patients.medical_aid, patients.phone, patients.id
+                    FROM patients";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->execute();
+            $patients = $statement->fetchAll();
+
+            $this->disconnect();
+            return $patients;
+        }
+
+        public function getPatientDetails($id) {
+
+            $this -> connect();
+
+            $sql = "SELECT patients.name as patient_name, patients.medical_aid, patients.phone, patients.id
+                    FROM patients
+                    WHERE patients.id = :id;";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":id", $id);
+            $statement->execute();
+            $patient = $statement->fetch();
+
+            $sql = "SELECT appointments.date, appointments.time, doctors.last_name as doctor_surname, rooms.room_num
+                    FROM appointments 
+                    INNER JOIN rooms 
+                    ON rooms.id = appointments.room_id
+                    INNER JOIN doctors
+                    ON doctors.id = appointments.doc_id
+                    WHERE appointments.patient_id = :id";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":id", $id);
+            $statement->execute();
+
+            $appointmentResults = $statement->fetchAll();
+            $appointments = array();
+
+            foreach ($appointmentResults as $appointmentResult) {
+                array_push($appointments, $appointmentResult['date']);
+                array_push($appointments, $appointmentResult['time']);
+                array_push($appointments, $appointmentResult['doctor_surname']);
+                array_push($appointments, $appointmentResult['room_num']);
+
+            }
+            
+            $patient['appointments'] = $appointments;
+
+            $this->disconnect();
+            return $patient;
+
+        }
+
+        public function getAppointments(){
+            $this -> connect();
+
+            $sql = "SELECT appointments.date, appointments.time, doctors.last_name as doctor_surname, rooms.room_num, patients.name as patient_name
+                    FROM appointments 
+                    INNER JOIN rooms 
+                    ON rooms.id = appointments.room_id
+                    INNER JOIN doctors
+                    ON doctors.id = appointments.doc_id
+                    INNER JOIN patients
+                    ON patients.id = appointments.patient_id";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->execute();
+            
+            $appointments = $statement->fetchAll();
+
+            $this-> disconnect();
+            return $appointments;
+        }
+
+        public function getDoctorAppointments($id){
+            $this -> connect();
+
+            $sql = "SELECT appointments.date, appointments.time, doctors.last_name as doctor_surname, rooms.room_num, patients.name as patient_name
+                    FROM appointments 
+                    INNER JOIN rooms 
+                    ON rooms.id = appointments.room_id
+                    INNER JOIN doctors
+                    ON doctors.id = appointments.doc_id
+                    INNER JOIN patients
+                    ON patients.id = appointments.patient_id
+                    WHERE appointments.doc_id = :id ";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":id", $id);
+            $statement->execute();
+
+            $appointments = $statement->fetchAll();
+
+            $this-> disconnect();
+            return $appointments;
+        }
+        public function getPatientAppointments($id){
+            $this -> connect();
+
+            $sql = "SELECT appointments.date, appointments.time, doctors.last_name as doctor_surname, rooms.room_num, patients.name as patient_name
+                    FROM appointments 
+                    INNER JOIN rooms 
+                    ON rooms.id = appointments.room_id
+                    INNER JOIN doctors
+                    ON doctors.id = appointments.doc_id
+                    INNER JOIN patients
+                    ON patients.id = appointments.patient_id
+                    WHERE appointments.patient_id = :id ";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":id", $id);
+            $statement->execute();
+
+            $appointments = $statement->fetchAll();
+
+            $this-> disconnect();
+            return $appointments;
+        }
+
+        public function getRoomsList(){
+            $this -> connect();
+
+            $sql = "SELECT rooms.room_num, rooms.floor_num, rooms.id 
+                    FROM rooms";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->execute();
+            $rooms = $statement->fetchAll();
+
+            $this->disconnect();
+            return $rooms;
+        }
+
+        public function getRoomsByDoc($name){
+            $this -> connect();
+
+            $sql = "SELECT rooms.room_num, rooms.floor_num, rooms.id
+                    FROM rooms 
+                    INNER JOIN doctors 
+                    ON rooms.doc_id = doctors.id
+                    WHERE doctors.last_name = :name;";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":name", $name);
+            $statement->execute();
+
+            $rooms = $statement->fetchAll();
+
+            $this->disconnect();
+            return $rooms;
+        }
+
+        public function postAppointment($appointment) {
+            $this->connect();
+
+            $sql = "SELECT id as patient_id from patients where patients.name = :name";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":name", $appointment['patient_name']);
+            $statement->execute();
+
+            $patient = $statement->fetch();
+
+            $sql = "SELECT id as doctor_id from doctors where doctors.last_name = :name";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":name", $appointment['doctor_surname']);
+            $statement->execute();
+
+            $doctor = $statement->fetch();
+
+
+            $sql = "INSERT INTO appointments(patient_id, doc_id, room_id, date, time)
+                    VALUES (:patient_id, :doctor_id, :room_id, :date, :time);";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(':patient_id', $patient['patient_id']);
+            $statement->bindValue(':doctor_id', $doctor['doctor_id']);
+            $statement->bindValue(':room_id', $appointment['room_id']);
+            $statement->bindValue(':date', $appointment['date']);
+            $statement->bindValue(':time', $appointment['time']);
+            $statement->execute();
+            $this->disconnect();
+            return true;
+        }
+
+        public function findDoctor($name) {
+            $this->connect();
+
+            $sql = "SELECT COUNT(id) as i FROM doctors WHERE doctors.last_name = :name ";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement -> bindValue(":name" , $name);
+            $statement->execute();
+
+            $result = $statement->fetch();
+
+            $this-> disconnect();
+            return $result[i];
+        }
+
+        public function findPatient($name) {
+            $this->connect();
+
+            $sql = "SELECT COUNT(id) as i FROM patients WHERE patients.name = :name ";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement -> bindValue(":name" , $name);
+            $statement->execute();
+
+            $result = $statement->fetch();
+
+            $this-> disconnect();
+            return $result[i];
+        }
+
+        public function findUser($email) {
+            $this->connect();
+
+            $sql = "SELECT COUNT(id) as i FROM users WHERE users.email = :email ";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement -> bindValue(":email" , $email);
+            $statement->execute();
+
+            $result = $statement->fetch();
+
+            $this-> disconnect();
+            return $result[i];
+        }
+
+        public function getUser($email){
+            $this->connect();
+
+            $sql = "SELECT * FROM users WHERE users.email = :email ";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement -> bindValue(":email" , $email);
+            $statement->execute();
+
+            $user = $statement->fetch();
+
+            $this-> disconnect();
+            return $user;
         }
     }
 

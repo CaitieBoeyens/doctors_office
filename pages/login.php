@@ -1,4 +1,5 @@
- 
+<?php require_once __DIR__.'/../fragments/setup.php'; ?>
+<?php require_once __DIR__.'/../fragments/login-validation.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,27 +24,23 @@
                         </figure>
                     <div class="box is-blue has-text-light login-block">
                         <h1 class="title has-text-light">Login</h1>
-                        <div class="field">
-                            <label class="label has-text-light">Email</label>
-                            <div class="control has-icons-left has-icons-right">
-                                <input class="input" type="email" placeholder="Email">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-envelope"></i>
-                                </span>
+                        <form name="newLogin" method="post" action="<?= $self ?>">
+                            <?php 
+                                foreach($fields as $field){
+
+                                        $description = $descriptions[$field];
+                                        $type = $types[$field];
+                                        $icon = $icons[$field];
+                                        $error = $errors[$field];
+                                        $value = $_POST[$field];
+                                        include __DIR__.'/../fragments/form-field.php';
+                                    }
+
+                            ?>
+                            <div class="control is-centered">
+                                <input class="button orange-btn has-text-light is-rounded" type="submit" name="login-submit" value="Login">
                             </div>
-                        </div>
-                        <div class="field">
-                            <label class="label has-text-light">Password</label>
-                            <div class="control has-icons-left has-icons-right">
-                                <input class="input" type="password" placeholder="Password">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-lock"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="control is-centered">
-                             <a class="button orange-btn has-text-light is-rounded" href="home.php">Login</a>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>   

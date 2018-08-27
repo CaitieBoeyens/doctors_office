@@ -123,3 +123,7 @@ h1 {
     box-shadow: 0 6px 14px 0 rgba(102, 102, 102, 0.37);
     transform: scale(1.1);
 }
+
+.label {
+    text-transform: capitalize;
+}

@@ -1,3 +1,11 @@
+ <?php require_once __DIR__.'/../fragments/setup.php'; ?>
+
+ <?php
+   /*  if(!isset($_SESSION['email'])){
+        header('Location: /doctors_office/pages/login.php');
+    } */
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>

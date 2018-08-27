@@ -1,4 +1,12 @@
- 
+<?php require_once __DIR__.'/../fragments/setup.php'; ?>
+<?php require_once __DIR__.'/../fragments/appointment-validation.php'; ?>
+
+<?php
+    if(!isset($_SESSION['email'])){
+        header('Location: /doctors_office/pages/login.php');
+    }
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -36,23 +44,36 @@
                         </article>
                         <div class="box is-blue is-shadowless doctors">
 
+                        <?php 
+                        $doctors = $db -> getDoctors();
+                        foreach($doctors as $doctor){
+                            $doctor_id = $doctor['id'];
+                            $name = $doctor['doctor_name'];
+                            $surname = $doctor['doctor_surname'];
+                            $specialisation = $doctor['specialisation'];
+                            $doctor_img = '../assets/'.$doctor['img_path'].'.png';
+                        
+
+                        ?>
+
                             <div class="box">
                                 <article class="media">
                                     <figure class="media-left">
                                         <p class="image is-128x128">
-                                            <img src="../assets/user_placeholder.svg">
+                                            <img src="<?= $doctor_img ?>">
                                         </p>
                                     </figure>
                                     <div class="media-content">
-                                        <h2 class="subtitle">Doctor Name</h1>
-                                        <p> <strong>Specialisation:</strong>  </p>
-                                        <p> <strong>Rooms: </strong>  </p>
+                                        <h2 class="subtitle"><?= $name ?> <?= $surname ?></h2>
+                                        <p> <strong>Specialisation: <?= $specialisation ?></strong>  </p>
                                     </div>
                                     <div class="media-right">
-                                        <a class="button is-rounded" href='doctor.php'>See more</a>
+                                        <a class="button is-rounded" href='doctor.php?id=<?= $doctor_id ?>'>See more</a>
                                     </div>
                                 </article>
                             </div>
+                            
+                            <?php }?> 
                             
                         </div>
                     </div>
@@ -99,6 +120,7 @@
                                 <table class="table is-hoverable is-fullwidth">
                                     <thead>
                                         <tr>
+                                            <th>Date</th>
                                             <th>Time</th>
                                             <th>Patient</th>
                                             <th>Doctor</th>
@@ -106,13 +128,28 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
+                                    <?php 
+                                        $appointments = $db -> getAppointments();
+                                        
+                                        foreach($appointments as $appointment){
+                                            $appointment_id = $appointment['id'];
+                                            $patient = $appointment['patient_name'];
+                                            $doctor = $appointment['doctor_surname'];
+                                            $room = $appointment['room_num'];
+                                            $date = $appointment['date'];
+                                            $time = $appointment['time'];
+                                    ?>
                                         <tr>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>Dr Smith</td>
-                                            <td>Floor 1 Room 2</td>
+                                            <td><?= $date ?></td>
+                                            <td><?= $time ?></td>
+                                            <td><?= $patient ?></td>
+                                            <td>Dr <?= $doctor ?></td>
+                                            <td><?= $room ?></td>
                                         </tr>
                                         
+                                    <?php }?> 
+
                                     </tbody>
                                 </table>
                             </div>
@@ -160,5 +197,11 @@
             element.classList.toggle("is-active");
             }
         </script>
+
+        <!-- <?php 
+            /* $appointments = $db -> getAppointments();  */ 
+            echo(json_encode($errors));      
+        ?> -->
+
     </body>
 </html>

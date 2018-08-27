@@ -1,4 +1,11 @@
- 
+ <?php require_once __DIR__.'/../fragments/setup.php'; ?>
+
+  <?php
+   /*  if(!isset($_SESSION['email'])){
+        header('Location: /doctors_office/pages/login.php');
+    } */
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,46 +37,31 @@
                             
                         </article>
                         <div class="box is-blue is-shadowless doctors">
+                        <?php 
+                        $patients = $db -> getPatients();
+                        foreach($patients as $patient){
+                            $patient_id = $patient['id'];
+                            $name = $patient['patient_name'];
+                            $medical_aid = $patient['medical_aid'];
+                            $phone = $patient['phone'];
+                        
+
+                        ?>
                             <div class="box">
                                 <article class="media">
                                     
                                     <div class="media-content">
-                                        <h2 class="subtitle">Patients Name</h1>
-                                        <p> <strong>Medical aid number:</strong>  </p>
-                                        <p> <strong>Phone number: </strong>  </p>
+                                        <h2 class="subtitle"><?= $name ?></h2>
+                                        <p> <strong>Medical aid number:</strong><?= $medical_aid ?></p>
+                                        <p> <strong>Phone number: </strong><?= $phone ?></p>
                                     </div>
                                     <div class="media-right">
-                                        <a class="button is-rounded" href="patient.php">See more</a>
+                                        <a class="button is-rounded" href="patient.php?id=<?= $patient_id ?>">See more</a>
                                     </div>
                                 </article>
                             </div>
-                            
-                            <div class="box">
-                                <article class="media">
-                                    
-                                    <div class="media-content">
-                                        <h2 class="subtitle">Patients Name</h1>
-                                        <p> <strong>Medical aid number:</strong>  </p>
-                                        <p> <strong>Phone number: </strong>  </p>
-                                    </div>
-                                    <div class="media-right">
-                                        <a class="button is-rounded">See more</a>
-                                    </div>
-                                </article>
-                            </div>
-                            <div class="box">
-                                <article class="media">
-                                    
-                                    <div class="media-content">
-                                        <h2 class="subtitle">Patients Name</h1>
-                                        <p> <strong>Medical aid number:</strong>  </p>
-                                        <p> <strong>Phone number: </strong>  </p>
-                                    </div>
-                                    <div class="media-right">
-                                        <a class="button is-rounded">See more</a>
-                                    </div>
-                                </article>
-                            </div>
+
+                        <?php }?>    
                             
                         </div>
                     </div>

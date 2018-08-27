@@ -1,3 +1,11 @@
+ <?php require_once __DIR__.'/../fragments/setup.php'; ?>
+
+ <?php
+   /*  if(!isset($_SESSION['email'])){
+        header('Location: /doctors_office/pages/login.php');
+    } */
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,20 +21,25 @@
     </head>
     <body>
         <?php include __DIR__.'/../fragments/navigation.php'; ?>
+        <?php include __DIR__.'/../fragments/appointment-form.php'; ?>
         
         
+        <?php 
+            $id = $_GET['id'];
+            $patient = $db -> getPatientDetails($id);
+            $name = $patient['patient_name'];
+            $medical_aid = $patient['medical_aid'];
+            $phone = $patient['phone'];
+        ?>
+
         <div class="container main-con">
             <div class="columns">
                 <div class="column is-one-third">
                     <div class="box details is-blue has-text-centered has-text-light">
-                        <figure>
-                            <p class="image person-icon">
-                                <img src="../assets/user_placeholder.svg">
-                            </p>
-                        </figure>
-                        <h2 class="title has-text-light">Patient Name</h2>
-                        <p> <strong class="has-text-light">Medical aid number:</strong> 01010101010 </p>
-                        <p> <strong class="has-text-light">Phone number:</strong> 010 101 1010 </p>
+                        
+                        <h2 class="title has-text-light"><?= $name ?></h2>
+                        <p> <strong class="has-text-light">Medical aid number: </strong><?= $medical_aid ?></p>
+                        <p> <strong class="has-text-light">Phone number:</strong> <?= $phone ?></p>
                     
                         
                     </div>
@@ -47,78 +60,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php 
+                                        $appointments = $db->getPatientAppointments($id);
+                                        foreach($appointments as $appointment){
+                                            $appointment_id = $appointment['id'];
+                                            $doctor = $appointment['doctor_surname'];
+                                            $room = $appointment['room_num'];
+                                            $date = $appointment['date'];
+                                            $time = $appointment['time'];
+                                    ?>
                                         <tr>
-                                            <td>Monday</td>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>F1 R2</td>
+                                            <td><?= $date ?></td>
+                                            <td><?= $time ?></td>
+                                            <td>Dr <?= $doctor ?></td>
+                                            <td><?= $room ?></td>
                                         </tr>
-                                        <tr>
-                                            <td>Tuesday</td>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>F1 R2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Monday</td>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>F1 R2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tuesday</td>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>F1 R2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Monday</td>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>F1 R2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tuesday</td>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>F1 R2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Monday</td>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>F1 R2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tuesday</td>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>F1 R2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Monday</td>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>F1 R2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tuesday</td>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>F1 R2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Monday</td>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>F1 R2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tuesday</td>
-                                            <td>16:00</td>
-                                            <td>John</td>
-                                            <td>F1 R2</td>
-                                        </tr>
+                                        
+                                    <?php }?> 
                                     </tbody>
                                 </table>
                             </div>
@@ -126,7 +84,7 @@
                     </div>
                     <div class="columns">
                         <div class="column is-one-fifth is-offset-one-fifth">
-                            <a href="../pages/new_appointment.php">
+                            <a onclick="modalToggle('appointment')">
                                 <figure class="has-text-centered">
                                     <p class="image plus">
                                         <img src="../assets/plus.svg">
@@ -157,5 +115,11 @@
                 </div>
             </div>
         </div>
+        <script>
+            function modalToggle(modalName) {
+            var element = document.getElementById(`${modalName}-modal`);
+            element.classList.toggle("is-active");
+            }
+        </script>
     </body>
 </html>

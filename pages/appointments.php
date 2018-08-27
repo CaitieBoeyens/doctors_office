@@ -1,3 +1,11 @@
+ <?php require_once __DIR__.'/../fragments/setup.php'; ?>
+
+ <?php
+   /*  if(!isset($_SESSION['email'])){
+        header('Location: /doctors_office/pages/login.php');
+    } */
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -36,90 +44,24 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        <?php 
+                                            $appointments = $db->getAppointments();
+                                            foreach($appointments as $appointment){
+                                                $appointment_id = $appointment['id'];
+                                                $doctor = $appointment['doctor_surname'];
+                                                $patient = $appointment['patient_name'];
+                                                $room = $appointment['room_num'];
+                                                $date = $appointment['date'];
+                                                $time = $appointment['time'];
+                                        ?>
                                             <tr>
-                                                <td>Monday</td>
-                                                <td>16:00</td>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td>F1 R2</td>
+                                                <td><?=$date ?></td>
+                                                <td><?=$time ?></td>
+                                                <td>Dr <?= $doctor ?></td>
+                                                <td><?=$patient ?></td>
+                                                <td><?=$room ?></td>
                                             </tr>
-                                            <tr>
-                                                <td>Tuesday</td>
-                                                <td>16:00</td>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td>F1 R2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Monday</td>
-                                                <td>16:00</td>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td>F1 R2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tuesday</td>
-                                                <td>16:00</td>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td>F1 R2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Monday</td>
-                                                <td>16:00</td>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td>F1 R2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tuesday</td>
-                                                <td>16:00</td>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td>F1 R2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Monday</td>
-                                                <td>16:00</td>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td>F1 R2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tuesday</td>
-                                                <td>16:00</td>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td>F1 R2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Monday</td>
-                                                <td>16:00</td>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td>F1 R2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tuesday</td>
-                                                <td>16:00</td>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td>F1 R2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Monday</td>
-                                                <td>16:00</td>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td>F1 R2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tuesday</td>
-                                                <td>16:00</td>
-                                                <td>John</td>
-                                                <td>John</td>
-                                                <td>F1 R2</td>
-                                            </tr>
+                                            <?php }?>    
                                         </tbody>
                                     </table>
                                 </div>
