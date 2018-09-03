@@ -21,7 +21,8 @@
         'doctor_surname' => 'That doctor is not registered, please only enter their surnamem or check your spelling',
         'date' => 'Select a date within business hours, we are only open on weekdays',
         'time' => ' We are open from 9am to 4pm and slots are booked on the hour every hour',
-        'room_id' => 'The doctor you entered only uses the following rooms:'
+        'room_id' => 'The doctor you entered only uses the following rooms:',
+        'clash' => 'There is already an appointment at this time'
     );
 
     $slots = array(
@@ -115,6 +116,24 @@
         }
     }
 
+    function checkClash() {
+        global $errors, $error_messages, $db;
+
+
+        $appointment = array();
+        $appointment['doctor_surname'] = $_POST['doctor_surname'];
+        $appointment['date'] = $_POST['date'];
+        $appointment['time'] = $_POST['time'];
+
+        $result = $db -> findClash($appointment);
+                if($result > '0'){
+                    $errors['clash'] = $error_messages['clash'];
+                
+                    $errors['clash_details'] = 'On '.$_POST['date'].' Dr '.$_POST['doctor_surname'].' already has appointments at:';
+                    
+                }       
+    }
+
 // Handle form submissions
     $newAppointmentForm = isset($_POST['new-appointment-submit']);
     if ($formSubmitted && $newAppointmentForm) {
@@ -127,7 +146,7 @@
         validateRoom('room_id');
         validateDate('date');
         validateTime('time');
-
+        checkClash();
        
         
         if(empty($errors)){

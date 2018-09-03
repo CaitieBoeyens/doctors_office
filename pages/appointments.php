@@ -20,6 +20,10 @@
         <link rel="stylesheet" type="text/css" media="screen" href="../css/appointment.css" />
         <title>Appointment</title>         
         <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon">
+
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script> 
+        <script src="../external/__jquery.tablesorter/jquery.tablesorter.min.js"></script>
     </head>
     <body>
         <?php include __DIR__.'/../fragments/navigation.php'; ?>
@@ -35,7 +39,7 @@
                             <h1 class="has-text-light">All appointments</h1>
                             <div class="box is-blue is-shadowless">
                                 <div class="box all-appointments-block">
-                                    <table class="table is-hoverable is-fullwidth">
+                                    <table class="table is-hoverable is-fullwidth tablesorter" id="appointments">
                                         <thead>
                                             <tr>
                                                 <th>Day</th>
@@ -71,5 +75,12 @@
                         </div>
             </div>
         </div>
+        <script>
+        $(document).ready(function() 
+            { 
+                $("#appointments").tablesorter({sortList: [[0,0], [1,0]]}); 
+            } 
+        ); 
+</script>
     </body>
 </html>

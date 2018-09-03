@@ -23,6 +23,10 @@
         <link rel="stylesheet" type="text/css" media="screen" href="../css/doctors.css" />
         <title>Doctor</title>         
         <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon">
+
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script> 
+        <script src="../external/__jquery.tablesorter/jquery.tablesorter.min.js"></script>
     </head>
     <body>
         <?php include __DIR__.'/../fragments/navigation.php'; ?>
@@ -52,10 +56,16 @@
                         <h2 class="title has-text-light"><?= $name ?> <?= $surname ?></h2>
                         <p> <strong class="has-text-light">Specialisation:</strong> <?= $specialisation ?> </p>
                         <h2><strong class="subtitle has-text-light appointments">Rooms:</strong></h2>
-                        
-                            <div class="box">
-                            <?php include __DIR__.'/../fragments/floor2-rooms.php'; ?>
-                            </div>
+                        <ul>
+                                    <?php 
+                                $doctor_rooms = $db -> getDoctorRooms($id);
+                                foreach ($doctor_rooms as $doctor_room){
+                                    $room_num = $doctor_room['room_num'];
+                                    $floor_num = $doctor_room['floor_num'];
+                                    ?>
+                                <li>Floor: <?=$floor_num?> Room: <?=$room_num?></li>
+                                <?php }?> 
+                            </ul>
                         
                     </div>
 
@@ -65,7 +75,7 @@
                         <h1 class="has-text-light">All appointments</h1>
                         <div class="box is-blue is-shadowless">
                             <div class="box all-appointments-block">
-                                <table class="table is-hoverable is-fullwidth">
+                                <table class="table is-hoverable is-fullwidth" id="appointments">
                                     <thead>
                                         <tr>
                                             <th>Day</th>
@@ -113,20 +123,6 @@
                                 </figure>
                             </a>
                         </div>
-                       <!--  <div class="column is-one-fifth is-offset-one-fifth">
-                            <a onclick="modalToggle('room')">
-                                <figure class="has-text-centered">
-                                    <p class="image plus">
-                                        <img src="../assets/plus.svg">
-                                    </p>
-                                    <p >
-                                        <strong class="has-text-orange">
-                                            New rooms
-                                        </strong>
-                                    </p>
-                                </figure>
-                            </a>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -137,20 +133,13 @@
             element.classList.toggle("is-active");
             }
         </script>
-        <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script> 
-        <script type="text/javascript" src="../external/selectize.js-master/dist/js/standalone/selectize.min.js"></script> 
         <script>
-        $('#rooms').selectize({
-            maxItems: null,
-            valueField: 'id',
-            labelField: 'label',
-            searchField: 'label',
-            options: ,
-            items: [],
-            create: false
-        });
-        </script> -->
+            $(document).ready(function() 
+                { 
+                    $("#appointments").tablesorter({sortList: [[0,0], [1,0]]}); 
+                } 
+            ); 
+        </script>
 
 
     </body>

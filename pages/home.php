@@ -125,7 +125,7 @@
                         </article>
                         <div class="box is-blue is-shadowless">
                             <div class="box has-text-centered appointments">
-                                <table class="table is-hoverable is-fullwidth">
+                                <table class="table is-hoverable is-fullwidth" id="appointments">
                                     <thead>
                                         <tr>
                                             <th>Date</th>
@@ -236,7 +236,8 @@
                             var thehtml = `<a class="button is-rounded orange-btn has-text-light"  href='patient.php?id=${ui.item.id}'>Go to ${ui.item.label}'s page</a>`;
                             $('#outputcontent').html(thehtml);
                         }
-                });            
+                }); 
+                $("#appointments").tablesorter({sortList: [[0,0], [1,0]]});            
             });
         </script>
 

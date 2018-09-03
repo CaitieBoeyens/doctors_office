@@ -205,6 +205,33 @@
             $this-> disconnect();
             return $appointments;
         }
+
+        public function getDoctorAppointmentsDates($name, $date){
+            $this -> connect();
+
+            $sql = "SELECT id as doctor_id from doctors where doctors.last_name = :name";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":name", $name);
+            $statement->execute();
+
+            $doctor = $statement->fetch();
+
+            $sql = "SELECT appointments.date, appointments.time
+                    FROM appointments 
+                    WHERE appointments.doc_id = :id AND   appointments.date = :date";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":id", $doctor['doctor_id']);
+            $statement->bindValue(":date", $date);
+            $statement->execute();
+
+            $appointments = $statement->fetchAll();
+
+            $this-> disconnect();
+            return $appointments;
+        }
+
         public function getPatientAppointments($id){
             $this -> connect();
 
@@ -295,7 +322,46 @@
             return true;
         }
 
-         public function postPatient($patient) {
+         public function editPassword($id, $password) {
+            $this->connect();
+
+            $sql = "UPDATE `users` SET `password`= :password WHERE id = :id";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":id", $id);
+            $statement->bindValue(":password", $password);
+            $statement->execute();
+            $this->disconnect();
+            return true;
+        }
+
+        public function findClash($appointment){
+            $this->connect();
+
+            $sql = "SELECT id as doctor_id from doctors where doctors.last_name = :name";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":name", $appointment['doctor_surname']);
+            $statement->execute();
+
+            $doctor = $statement->fetch();
+
+            $sql = "SELECT COUNT(id) as i FROM appointments WHERE appointments.doc_id = :doc_id AND appointments.date = :date AND appointments.time = :time";
+
+            
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":doc_id", intval($doctor['doctor_id']));
+            $statement->bindValue(":date", $appointment['date']);
+            $statement->bindValue(":time", $appointment['time']);
+            $statement->execute();
+
+            $result = $statement->fetch();
+
+            $this-> disconnect();
+            return $result['i'];
+        }
+
+        public function postPatient($patient) {
             $this->connect();
 
             $sql = "INSERT INTO patients(name, medical_aid, phone)

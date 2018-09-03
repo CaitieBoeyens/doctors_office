@@ -61,6 +61,12 @@
                                     <div class="slide1">
     
                                         <div class="field">
+
+                                            <?php if(isset($errors['clash'])):?>
+                                                <p class="help is-danger"><?= $errors['clash'] ?></p>
+
+                                        <?php endif;?>
+
                                             <label class="label">Patient</label>
                                             <div class="control has-icons-left">
                                                 <input class="input is-medium search" type="text" placeholder="Patient name" name="patient_name" value="<?= $_POST['patient_name'] ?>">
@@ -106,6 +112,25 @@
                                     <div class="slide2">
     
                                         <div class="field">
+
+                                        <?php if(isset($errors['clash_details'])):?>
+                                                <p class="help is-danger"><?= $errors['clash_details'] ?></p>
+                                                <ul>
+
+                                                    <?php 
+                                                            $clash_appointments = $db -> getDoctorAppointmentsDates($_POST['doctor_surname'], $_POST['date']);
+                                                            
+                                                            foreach($clash_appointments as $clash_appointment){
+                                                                $time = date("g:i", strtotime($clash_appointment['time']));
+    
+                                                        ?>
+                                                            <li class="help is-danger"><?= $time ?></li>
+    
+                                                            <?php } ?>
+                                                </ul>
+
+                                        <?php endif;?>
+                                            
                                             <label class="label">Date</label>
                                             <div class="columns is-centered">
                                                 <div class="column is-7 has-text-centered">
@@ -141,7 +166,7 @@
                                     </div>
                                     <div class="slide3">
 
-                                        <div class="field">
+                                        <div class="field room">
                                             <label class="label">Room</label>
                                             <div class="control has-icons-left has-icons-right">
                                                 <div class="select">

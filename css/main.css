@@ -189,3 +189,7 @@ h1 {
     color: #fff !important;
     display: block;
 }
+
+th {
+    cursor: pointer;
+}

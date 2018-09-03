@@ -23,7 +23,7 @@
 
                     ?>
                      
-                    <input class="button is-orange has-text-light" type="submit" name="new-patient-submit" value="Save changes">
+                    <input class="button is-orange has-text-light" type="submit" name="new-patient-submit" value="Add Patient">
                     <button class="button" onclick="modalToggle('patient')">Cancel</button>
                 </form>        
             </section>

@@ -144,3 +144,7 @@ p {
 #d {
     display: none;
 }
+
+.room {
+    margin-left: 20px;
+}

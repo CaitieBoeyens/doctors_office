@@ -23,8 +23,6 @@
         'medical_aid2' => 'That medical aid number has already been registered with the system'
     );
 
-    //for debugging
-
     
 
     function validatePatientPoplulated($pField) {
