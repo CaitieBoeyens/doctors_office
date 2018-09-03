@@ -1,9 +1,11 @@
+ 
+ <?php session_start() ?>
  <?php require_once __DIR__.'/../fragments/setup.php'; ?>
 
  <?php
-   /*  if(!isset($_SESSION['email'])){
+    if(!isset($_SESSION['email'])){
         header('Location: /doctors_office/pages/login.php');
-    } */
+    }
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +18,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Lato:700|Montserrat" rel="stylesheet">
         <link rel="stylesheet" type="text/css" media="screen" href="../css/main.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="../css/doctors.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="../css/patients.css" />
         <title>Patient</title>
     </head>
     <body>
@@ -33,7 +35,7 @@
         ?>
 
         <div class="container main-con">
-            <div class="columns">
+            <div class="columns is-centered">
                 <div class="column is-one-third">
                     <div class="box details is-blue has-text-centered has-text-light">
                         
@@ -45,6 +47,8 @@
                     </div>
 
                 </div>
+            </div>
+            <div class="columns is-centered">
                 <div class="column is-two-thirds">
                     <div class="box is-orange">
                         <h1 class="has-text-light">All appointments</h1>
@@ -82,6 +86,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="columns">
                         <div class="column is-one-fifth is-offset-one-fifth">
                             <a onclick="modalToggle('appointment')">

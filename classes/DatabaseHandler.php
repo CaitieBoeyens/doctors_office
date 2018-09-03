@@ -83,7 +83,13 @@
             $statement->execute();
             $doctor = $statement->fetch();
 
-            $sql = "SELECT rooms.room_num
+            $this->disconnect();
+            return $doctor;
+
+        }
+        public function getDoctorRooms($id) {
+            $this -> connect();
+            $sql = "SELECT rooms.room_num, rooms.floor_num
                     FROM rooms 
                     INNER JOIN doctors 
                     ON rooms.doc_id = doctors.id
@@ -93,17 +99,10 @@
             $statement->bindValue(":id", $id);
             $statement->execute();
 
-            $roomResults = $statement->fetchAll();
-            $rooms = array();
-
-            foreach ($roomResults as $roomResult) {
-                array_push($rooms, $roomResult['room_num']);
-            }
+            $rooms = $statement->fetchAll();
             
-            $doctor['rooms'] = $rooms;
             $this->disconnect();
-            return $doctor;
-
+            return $rooms;
         }
 
         public function getPatients(){
@@ -354,6 +353,37 @@
 
             $this-> disconnect();
             return $user;
+        }
+
+        public function searchPatients($number) {
+            $this->connect();
+
+            $sql = "SELECT * FROM patients WHERE patients.medical_aid LIKE :number ";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement -> bindValue(':number', $number);
+            $statement->execute();
+
+            $patients = $statement->fetchAll();
+
+            $this-> disconnect();
+            return $patients;
+
+        }
+        public function searchPatientsName($name) {
+            $this->connect();
+
+            $sql = "SELECT * FROM patients WHERE patients.name LIKE :name ";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement -> bindValue(':name', $name);
+            $statement->execute();
+
+            $patients = $statement->fetchAll();
+
+            $this-> disconnect();
+            return $patients;
+
         }
     }
 

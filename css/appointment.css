@@ -6,3 +6,127 @@
     max-height: 600px;
     overflow-y: scroll;
 }
+
+/* Form */
+
+/* picture radio buttons from http://jsfiddle.net/La8wQ/8211/ */
+
+.cc-selector input {
+    margin: 0;
+    padding: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.cc-selector input:active + .doctor-cc {
+    opacity: 1;
+}
+.cc-selector input:checked + .doctor-cc {
+    -webkit-filter: none;
+    -moz-filter: none;
+    filter: none;
+}
+.doctor-cc {
+    cursor: pointer;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    -webkit-transition: all 100ms ease-in;
+    -moz-transition: all 100ms ease-in;
+    transition: all 100ms ease-in;
+    -webkit-filter: brightness(1) grayscale(0.5) opacity(0.7);
+    -moz-filter: brightness(1) grayscale(0.5) opacity(0.7);
+    filter: brightness(1) grayscale(0.5) opacity(0.7);
+}
+.doctor-cc:hover {
+    -webkit-filter: brightness(0.9) grayscale(0.2) opacity(0.9);
+    -moz-filter: brightness(0.9) grayscale(0.2) opacity(0.9);
+    filter: brightness(0.9) grayscale(0.2) opacity(0.9);
+}
+
+/* Extras */
+a:visited {
+    color: #888;
+}
+a {
+    color: #444;
+    text-decoration: none;
+}
+p {
+    margin-bottom: 0.3em;
+}
+
+.time-cc {
+    cursor: pointer;
+    background-color: #5a9794ff;
+    color: white;
+    padding: 5px 10px;
+    font-weight: 700;
+    border-radius: 5px;
+}
+
+.time-cc:hover {
+    background-color: #e74424ff;
+}
+
+.cc-selector input:active + .time-cc {
+    background-color: #e74424ff;
+}
+.cc-selector input:checked + .time-cc {
+    background-color: #e74424ff;
+}
+
+.time-choice {
+    margin-top: 2em;
+}
+
+.doc-name {
+    margin-bottom: 0 !important;
+}
+
+.field:not(:first-child) {
+    margin-top: 2em;
+}
+
+.ui-datepicker .ui-datepicker-header {
+    background-color: #ffffff00;
+    border-color: #ffffff00;
+}
+
+.ui-datepicker .ui-datepicker-next-hover {
+    background-color: #ffffff00;
+    border-color: #ffffff00;
+}
+
+.ui-datepicker {
+    width: 100%;
+}
+
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+    background-color: #5a9794ff;
+    border-color: #5a9794ff;
+    color: #fff;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: #5a9794ff;
+}
+
+.slick-next {
+    right: -15px;
+}
+
+.slick-prev {
+    left: -15px;
+}
+
+.slick-prev.slick-disabled:before,
+.slick-next.slick-disabled:before {
+    display: none;
+}

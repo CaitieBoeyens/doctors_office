@@ -1,9 +1,10 @@
+<?php session_start() ?>
 <?php require_once __DIR__.'/../fragments/setup.php'; ?>
 
  <?php
-   /*  if(!isset($_SESSION['email'])){
+    if(!isset($_SESSION['email'])){
         header('Location: /doctors_office/pages/login.php');
-    } */
+    }
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +49,9 @@
                         <p> <strong class="has-text-light">Specialisation:</strong> <?= $specialisation ?> </p>
                         <h2><strong class="subtitle has-text-light appointments">Rooms:</strong></h2>
                         
-                            <div class="box"></div>
+                            <div class="box">
+                            <?php include __DIR__.'/../fragments/floor2-rooms.php'; ?>
+                            </div>
                         
                     </div>
 

@@ -29,24 +29,29 @@
 					Appointments
 				</a>
 
-				<a class="navbar-item has-text-light image is-96x96" href="../pages/profile.php">
+				<div class="navbar-item has-dropdown is-hoverable">
+					<a class="navbar-link has-text-light image is-96x96">
 
-				 <?php 
+					<?php 
+							$user = $db -> getUser($_SESSION['email']);
+							$name = $user['name'];
+							$email = $user['email'];
+							$img = '../assets/'.$user['img_path'].'.png';
+					?>
+						<img src="<?= $img ?>" id="user-icon">
+					</a>
 
-				 /* function var_dump_pre($mixed = null) {
-					echo '<pre>';
-						var_dump($mixed);
-					echo '</pre>';
-					return null;
-    			}
-						$user = $db -> getUser($_SESSION['email']);
-						var_dump_pre($user);
-						$name = $user['name'];
-						$email = $user['email'];
-						$img = '../assets/'.$user['img_path'].'.png'; */
-                ?>
-					<img src="<?= $img ?>" id="user-icon">
-				</a>
+					 <div class="navbar-dropdown negative-margin">
+						<a class="navbar-item" href="../pages/profile.php">
+							My Profile
+						</a>
+						<a class="navbar-item" href="../fragments/logout.php">
+							Log out
+						</a>
+					</div>
+				</div>
+
+				
 	
 		</div>
 		

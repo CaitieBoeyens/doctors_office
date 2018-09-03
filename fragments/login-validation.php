@@ -42,8 +42,8 @@
         if(!isset($errors[$field])){
        
             $user = $db -> getUser($_POST['email']);
-            var_dump_pre($user['password']);
-            var_dump_pre($_POST['password']);
+            /* var_dump_pre($user['password']);
+            var_dump_pre($_POST['password']); */
 
             if($_POST['password'] !== $user['password']){
                 $errors[$field] = $error_messages[$field];
@@ -65,9 +65,6 @@
            $_SESSION['email'] = $_POST['email']; 
            if(isset($_SESSION['email'])){
                header('Location: /doctors_office/pages/home.php');
-           }else{
-            var_dump_pre($_POST['email']);
-
            }
         }
 

@@ -1,9 +1,10 @@
+ <?php session_start() ?>
  <?php require_once __DIR__.'/../fragments/setup.php'; ?>
 
   <?php
-   /*  if(!isset($_SESSION['email'])){
+    if(!isset($_SESSION['email'])){
         header('Location: /doctors_office/pages/login.php');
-    } */
+    }
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +17,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Lato:700|Montserrat" rel="stylesheet">
+        <link rel="stylesheet" href="../css/jquery-ui.min.css"/>
+        <link rel="stylesheet" href="../css/jquery-ui.theme.min.css"/>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/main.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="../css/home.css" />
     </head>
@@ -82,25 +85,18 @@
                         <div class="box is-blue is-shadowless">
                             <div class="field">
                                 <div class="control has-icons-right">
-                                    <input class="input is-medium" type="text" placeholder="Medical Aid Number">
+                                    <input class="input is-medium search" type="text" placeholder="Medical Aid Number">
                                     <span class="icon is-right">
                                         <i class="fas fa-search"></i>
                                     </span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="box">
-                                <article class="media">
-                                    <div class="media-content">
-                                        <h2 class="subtitle">Patients Name</h1>
-                                        <p> <strong>Medical aid number:</strong>  </p>
-                                        <p> <strong>Phone number: </strong>  </p>
-                                    </div>
-                                    <div class="media-right">
-                                        <a class="button is-rounded">See more</a>
-                                    </div>
-                                </article>
+
+                            <div id="outputbox">
+                                <p id="outputcontent"></p>
                             </div>
+                        </div>
+                        
                     </div>
 
                     
@@ -140,5 +136,39 @@
             </div>
         
         </div>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script> 
+        
+        <script type="text/javascript">
+            $(function() {             
+
+                $(".search").autocomplete({
+                    source: function(request, response){
+                                $.get("../fragments/search-patients.php", {
+                                    term:request.term
+                                    }, function(data){
+                                    response($.map(data, function(item) {
+                                        return {
+                                            label: item.name,
+                                            value: item.medical_aid,
+                                            id: item.id
+                                        }
+                                    }))
+                                }, "json");
+                            },
+                    minLength: 1,
+                    messages: {
+                        noResults: '',
+                        results: function() {}
+                    },
+                    dataType: "json",
+                    select: function (event, ui) {
+                        
+                            var thehtml = `<a class="button is-rounded orange-btn has-text-light"  href='patient.php?id=${ui.item.id}'>Go to ${ui.item.label}'s page</a>`;
+                            $('#outputcontent').html(thehtml);
+                        }
+                });            
+            });
+        </script>
     </body>
 </html>

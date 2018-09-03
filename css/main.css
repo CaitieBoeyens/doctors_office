@@ -20,7 +20,7 @@ body {
     background-size: 40%; */
 
     background: #ebebeb;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .navbar {
@@ -50,7 +50,7 @@ h1 {
 #user-icon {
     width: 100%;
     max-height: 100px;
-    margin-top: 2.5rem;
+    margin-top: 1rem;
 }
 
 .brand-text {
@@ -126,4 +126,66 @@ h1 {
 
 .label {
     text-transform: capitalize;
+}
+
+.negative-margin {
+    margin: -30px;
+}
+
+.navbar-link::after {
+    border-color: #e74424ff;
+    margin-top: 2px;
+}
+
+.change-password {
+    margin-top: 1em;
+}
+
+.plus img {
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+    margin-bottom: 1em;
+    margin-top: 1.5em;
+}
+
+/* jquery ui customisation */
+
+.ui-corner-all {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+.ui-menu {
+    border: 1px solid #e74424ff;
+    font-family: 'Montserrat', sans-serif;
+}
+.ui-menu .ui-menu-item a {
+    color: #5a9794ff;
+}
+
+.ui-menu .ui-menu-item a:hover {
+    color: #fff;
+}
+.ui-widget-content .ui-state-hover li a,
+.ui-widget-content .ui-state-focus li a {
+    color: #fff;
+}
+.ui-menu .ui-menu-item:hover {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    background-color: #e74424ff;
+    background-image: none;
+    border: 1px solid #e74424ff;
+}
+.ui-widget-content .ui-state-hover,
+.ui-widget-content .ui-state-focus {
+    border: 1px solid #e74424ff;
+    background-image: none;
+    background-color: #e74424ff;
+    font-weight: bold;
+    color: #fff !important;
+    display: block;
 }

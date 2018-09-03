@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <?php require_once __DIR__.'/../fragments/setup.php'; ?>
 <?php require_once __DIR__.'/../fragments/login-validation.php'; ?>
 <!DOCTYPE html>

@@ -1,15 +1,9 @@
-<div id="appointment-modal" class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-        <header class="modal-card-head">
-            <p class="modal-card-title">New Appointment</p>
-            <button class="delete" aria-label="close" onclick="modalToggle('appointment')"></button>
-        </header>
-            <section class="modal-card-body">
-                <form name="new-appointment-form" method="post" action="<?= $self ?>">
 
-                    <?php 
-                        foreach($fields as $field){
+
+                
+
+                   <!--  <?php 
+                        /* foreach($fields as $field){
                             if($field !== 'room_id'){
 
                                 $description = $descriptions[$field];
@@ -19,7 +13,7 @@
                                 $value = $_POST[$field];
                                 include __DIR__.'/../fragments/form-field.php';
                             }
-                        }
+                        } */
 
                     ?>
                     <div class="field">
@@ -29,7 +23,7 @@
                                 <select name="room_id" auto-focus="<?= $_POST['room_id'] ?>">
                                     <option value="">-</option>
                                 <?php 
-                                    $rooms = $db -> getRoomsList();
+                                    /* $rooms = $db -> getRoomsList();
                                     
                                     foreach($rooms as $room){
                                         $id = $room['id'];
@@ -39,14 +33,14 @@
                                 ?>
                                     <option value="<?= $id ?>">Room: <?= $room_num ?>, Floor: <?= $floor_num ?></option>
 
-                                    <?php } ?>                
+                                    <?php }  */?>                
                                 </select>
                             </div>
                             <div class="icon is-small is-left">
                                 <i class="fas fa-hospital-alt"></i>
                             </div>
                         </div> 
-                        <?php if(isset($errors['room_id'])):?>
+                        <?php /* if(isset($errors['room_id'])):?>
                         <p class="help is-danger"><?= $errors['room_id'] ?>
                         </p>
                         <?php endif;?>
@@ -64,14 +58,6 @@
 
                                     <?php } ?>     
                             </ul> 
-                        <?php endif;?>               
+                        <?php endif; */?>               
                         
-                    </div>    
-                    <input class="button is-orange has-text-light" type="submit" name="new-appointment-submit" value="Save changes">
-                    <button class="button" onclick="modalToggle('appointment')">Cancel</button>
-                </form>        
-            </section>
-
-    </div>
-</div>
-
+                    </div> -->    
