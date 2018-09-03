@@ -12,6 +12,6 @@
         <?php endif;?>
     </div>
     <?php if(isset($error)):?>
-    <p class="help is-danger"><?= $errors[$field] ?></p>
+    <p class="help is-danger"><?= $error ?></p>
     <?php endif;?>
 </div>

@@ -137,17 +137,19 @@
             $appointment['date'] = $_POST['date'];
             $appointment['time'] = $_POST['time'];
             $appointment['room_id'] = $_POST['room_id'];
-            
             $db->postAppointment($appointment);
+            /* var_dump_pre($appointment); */
+           echo("<script>
+            function openModal() { modalToggle('success') }
+            window.onload = openModal;</script>");
+            
             $_POST['patient_name']='';
             $_POST['doctor_surname']='';
             $_POST['date']='';
             $_POST['time']='';
-            $_POST['room_num']='';
+            $_POST['room_id']='';
         } else {
-            echo("<script>
-            function openModal() { modalToggle('appointment') }
-            window.onload = openModal;</script>");
+            /* var_dump_pre($errors); */
         }
 
     } 

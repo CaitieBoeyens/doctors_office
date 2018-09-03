@@ -18,19 +18,12 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:700|Montserrat" rel="stylesheet">
         <link rel="stylesheet" type="text/css" media="screen" href="../css/main.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="../css/doctors.css" />
-        <title>Doctors</title>
+        <title>Doctors</title>         
+        <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon">
     </head>
     <body>
         <?php include __DIR__.'/../fragments/navigation.php'; ?>
-        <a href="/rooms.php">
-            <div class="floating-btn has-text-centered orange-btn">
-                <p >
-                    <strong class="has-text-light">
-                        Assign rooms
-                    </strong>
-                </p>
-            </div>
-        </a>
+        
         
         <div class="container main-con">
             <div class="columns">
@@ -53,29 +46,29 @@
 
                 ?>
                 <div class="column is-one-quarter">
-                    <div class="box is-blue has-text-centered has-text-light">
-                        <figure>
-                            <a href="doctor.php">
-                                <p class="image person-icon">
-                                    <img src="<?= $doctor_img ?>">
-                                </p>
-                            </a>
-                        </figure>
-                        <h2 class="title has-text-light"><?= $name ?> <?= $surname ?></h2>
-                        <p> <strong class="has-text-light">Specialisation:</strong> <br/><?= $specialisation ?> </p>
-                        <p> <strong class="has-text-light">Rooms: </strong> <ul>
-                            <?php 
-                            $doctor_rooms = $db -> getDoctorRooms($doctor_id);
-                            foreach ($doctor_rooms as $doctor_room){
-                                $room_num = $doctor_room['room_num'];
-                                $floor_num = $doctor_room['floor_num'];
-                            ?>
-                            <li>Floor: <?=$floor_num?> Room: <?=$room_num?></li>
-                            <?php }?> 
-                        </ul></p>
-                        <!-- <div class="box"></div> -->
+                    <a href="doctor.php?id=<?= $doctor_id ?>">
+                        <div class="box is-blue has-text-centered has-text-light">
+                            <figure>
+                                    <p class="image person-icon">
+                                        <img src="<?= $doctor_img ?>">
+                                    </p>
+                                </figure>
+                                <h2 class="title has-text-light"><?= $name ?> <?= $surname ?></h2>
+                                <p> <strong class="has-text-light">Specialisation:</strong> <br/><?= $specialisation ?> </p>
+                                <p> <strong class="has-text-light">Rooms: </strong> <ul>
+                                    <?php 
+                                $doctor_rooms = $db -> getDoctorRooms($doctor_id);
+                                foreach ($doctor_rooms as $doctor_room){
+                                    $room_num = $doctor_room['room_num'];
+                                    $floor_num = $doctor_room['floor_num'];
+                                    ?>
+                                <li>Floor: <?=$floor_num?> Room: <?=$room_num?></li>
+                                <?php }?> 
+                            </ul></p>
+                            <!-- <div class="box"></div> -->
+                        </div>  
                     </div>  
-                </div>  
+                </a>
                 <?php  }?> 
             </div>
         </div>

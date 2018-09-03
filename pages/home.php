@@ -1,5 +1,6 @@
 <?php session_start() ?>
 <?php require_once __DIR__.'/../fragments/setup.php'; ?>
+<?php require_once __DIR__.'/../fragments/patient-validation.php'; ?>
 
 <?php
     if(!isset($_SESSION['email'])){
@@ -13,18 +14,20 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Home</title>
+        <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Lato:700|Montserrat" rel="stylesheet">
-        <link rel="stylesheet" href="../css/jquery-ui.min.css"/>
-        <link rel="stylesheet" href="../css/jquery-ui.theme.min.css"/>
+        <link rel="stylesheet" href="../external/jquery-ui.min.css"/>
+        <link rel="stylesheet" href="../external/jquery-ui.theme.min.css"/>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/main.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="../css/home.css" />
     </head>
     <body>
         <?php include __DIR__.'/../fragments/navigation.php'; ?>
-        <?php include __DIR__.'/../fragments/patient-form.php'; ?>
+        <?php include __DIR__.'/../fragments/success.php'; ?>
+        <?php include __DIR__.'/../fragments/new_patient.php'; ?>
 
         <div class="main-con container">
             <div class="columns">
@@ -129,7 +132,7 @@
                                             <th>Time</th>
                                             <th>Patient</th>
                                             <th>Doctor</th>
-                                            <th>Room</th>
+                                            <th>R</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -142,8 +145,8 @@
                                             $patient = $appointment['patient_name'];
                                             $doctor = $appointment['doctor_surname'];
                                             $room = $appointment['room_num'];
-                                            $date = $appointment['date'];
-                                            $time = $appointment['time'];
+                                            $date = date("m-d", strtotime($appointment['date']));
+                                            $time = date("g:i", strtotime($appointment['time']));
                                     ?>
                                         <tr>
                                             <td><?= $date ?></td>
@@ -176,7 +179,7 @@
                             </a>
                         </div>
                         <div class="column is-half">
-                            <a href="new_patient.php">
+                            <a onclick="modalToggle('patient')">
                                 <figure class="has-text-centered">
                                     <p class="image plus">
                                         <img src="../assets/plus.svg">
@@ -196,6 +199,12 @@
             </div>
         
         </div>
+        <script>
+        function modalToggle(modalName) {
+            var element = document.getElementById(`${modalName}-modal`);
+            element.classList.toggle("is-active");
+        }
+        </script>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script> 
         
@@ -233,7 +242,7 @@
 
         <!-- <?php 
             /* $appointments = $db -> getAppointments();  */ 
-            echo(json_encode($errors));      
+            /* echo(json_encode($errors));  */     
         ?> -->
 
     </body>

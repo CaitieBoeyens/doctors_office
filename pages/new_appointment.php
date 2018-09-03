@@ -1,6 +1,7 @@
 <?php session_start() ?>
 <?php require_once __DIR__.'/../fragments/setup.php'; ?>
 <?php require_once __DIR__.'/../fragments/appointment-validation.php'; ?>
+<?php require_once __DIR__.'/../fragments/patient-validation.php'; ?>
 
 <?php
     if(!isset($_SESSION['email'])){
@@ -14,7 +15,8 @@
 <head>
     <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>New Apppointment</title>
+        <title>New Apppointment</title>         
+        <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
@@ -28,7 +30,11 @@
 </head>
 <body>
     <?php include __DIR__.'/../fragments/navigation.php'; ?>
-    <a href="/rooms.php">
+    <?php include __DIR__.'/../fragments/success.php'; ?>
+    <?php include __DIR__.'/../fragments/new_patient.php'; ?>
+    
+
+    <a onclick="modalToggle('patient')">
             <div class="floating-btn has-text-centered orange-btn">
                 <p>
                     <strong class="has-text-light">
@@ -57,11 +63,14 @@
                                         <div class="field">
                                             <label class="label">Patient</label>
                                             <div class="control has-icons-left">
-                                                <input class="input is-medium search" type="text" placeholder="Patient name" name="patient_name">
+                                                <input class="input is-medium search" type="text" placeholder="Patient name" name="patient_name" value="<?= $_POST['patient_name'] ?>">
                                                 <span class="icon is-left">
                                                     <i class="fas fa-user"></i>
                                                 </span>
                                             </div>
+                                            <?php if(isset($errors['patient_name'])):?>
+                                                <p class="help is-danger"><?= $errors['patient_name'] ?></p>
+                                            <?php endif;?>
                                         </div>
                                         <div class="doctors-choice field">
                                             <label class="label">Choose a doctor</label>
@@ -77,8 +86,8 @@
                                                         $doctor_img = '../assets'.$doctor['img_path'].'.png';
                                                 ?>
                                                     <div class="column is-one-quarter has-text-centered">
-                                                        <input  type="radio" name="doctor_name" value="<?= $doctor_id ?>" id="<?= $doctor_id ?>"/>
-                                                        <label class="doctor-cc" for="<?= $doctor_id ?>" style="background-image: url(<?= $doctor_img ?>)"></label>
+                                                        <input  type="radio" name="doctor_surname" value="<?= $surname ?>" id="<?= $doctor_id ?>" <?php echo ($_POST['doctor_surname']===$surname)?'checked':'' ?>/>
+                                                        <label class="doctor-cc" for="<?= $doctor_id ?>" style="background-image: url(<?= $doctor_img ?>)" ></label>
                                                         <label class="label doc-name"for="<?= $doctor_id ?>">
                                                             Dr <?= $surname ?>
                                                         </label>
@@ -88,6 +97,9 @@
                                                     </div>
                                                     <?php } ?>
                                                 </div>
+                                                <?php if(isset($errors['doctor_surname'])):?>
+                                                    <p class="help is-danger"><?= $errors['doctor_surname'] ?></p>
+                                                <?php endif;?>
                                             </div>
                                         </div>
                                     </div>
@@ -97,9 +109,13 @@
                                             <label class="label">Date</label>
                                             <div class="columns is-centered">
                                                 <div class="column is-7 has-text-centered">
-                                                    <div id="calendar" name="date"></div>
+                                                    <input type="text" name="date" id="d">
+                                                    <div id="calendar" name="date" value="<?= $_POST['date'] ?>"></div>
                                                 </div>
                                             </div>
+                                            <?php if(isset($errors['date'])):?>
+                                                <p class="help is-danger"><?= $errors['date'] ?></p>
+                                            <?php endif;?>
                                         </div>
                                         <div class="time-choice field">
                                             <label class="label">Pick a time</label>
@@ -110,47 +126,73 @@
                                                         
                                                 ?>
                                                     <div class="column has-text-centered">
-                                                        <input  type="radio" name="time" value="<?= $slot ?>" id="<?= $slot ?>"/>
+                                                        <input  type="radio" name="time" value="<?= $slot ?>" id="<?= $slot ?>" <?php echo ($_POST['time']===$slot)?'checked':'' ?>/>
                                                         <label class="time-cc" for="<?= $slot ?>"><?= $slot ?></label>
                                                         
                                                     </div>
                                                     <?php } ?>
                                                 </div>
                                             </div>
+
+                                            <?php if(isset($errors['time'])):?>
+                                                <p class="help is-danger"><?= $errors['time'] ?></p>
+                                            <?php endif;?>
                                         </div>
+                                    </div>
+                                    <div class="slide3">
+
+                                        <div class="field">
+                                            <label class="label">Room</label>
+                                            <div class="control has-icons-left has-icons-right">
+                                                <div class="select">
+                                                    <select name="room_id" auto-focus="<?= $_POST['room_id'] ?>">
+                                                        <option value="">-</option>
+                                                    <?php 
+                                                        $rooms = $db -> getRoomsList();
+                                                        
+                                                        foreach($rooms as $room){
+                                                            $id = $room['id'];
+                                                            $floor_num = $room['floor_num'];
+                                                            $room_num = $room['room_num'];
+        
+                                                    ?>
+                                                        <option value="<?= $id ?>">Room: <?= $room_num ?>, Floor: <?= $floor_num ?></option>
+        
+                                                        <?php } ?>                
+                                                    </select>
+                                                </div>
+                                            <div class="icon is-small is-left">
+                                                <i class="fas fa-hospital-alt"></i>
+                                            </div>
+                                            <?php if(isset($errors['room_id'])):?>
+                                            <p class="help is-danger"><?= $errors['room_id'] ?>
+                                            </p>
+                                            <?php endif;?>
+                                            <?php if(isset($errors['rooms_2'])):?>
+                                                <ul>
+                                                <?php 
+                                                        $rooms = $db -> getRoomsbyDoc($_POST['doctor_surname']);
+                                                        
+                                                        foreach($rooms as $room){
+                                                            $floor_num = $room['floor_num'];
+                                                            $room_num = $room['room_num'];
+
+                                                    ?>
+                                                        <li class="help is-danger">Room: <?= $room_num ?>, Floor: <?= $floor_num ?></li>
+
+                                                        <?php } ?>     
+                                                </ul> 
+                                            <?php endif;?>
+                                        </div> 
+                                    </div>
+                                   <div class="field is-grouped">
+                                        <p class="control">
+                                            <input class="button is-orange has-text-light is-rounded" type="submit" name="new-appointment-submit" value="Book Appointment">
+                                            <button class="button is-rounded" onclick="javascript:history.go(-1);return false;">Cancel</button>
+                                        </p>
+                                    </div>
                                     </div>
                             
-                                </div>
-                                <div class="field">
-                                    <label class="label">Room</label>
-                                    <div class="control has-icons-left has-icons-right">
-                                        <div class="select">
-                                            <select name="room_id" auto-focus="<?= $_POST['room_id'] ?>">
-                                                <option value="">-</option>
-                                            <?php 
-                                                /* $rooms = $db -> getRoomsList();
-                                                
-                                                foreach($rooms as $room){
-                                                    $id = $room['id'];
-                                                    $floor_num = $room['floor_num'];
-                                                    $room_num = $room['room_num'];
-
-                                            ?>
-                                                <option value="<?= $id ?>">Room: <?= $room_num ?>, Floor: <?= $floor_num ?></option>
-
-                                                <?php }  */?>                
-                                            </select>
-                                        </div>
-                                    <div class="icon is-small is-left">
-                                        <i class="fas fa-hospital-alt"></i>
-                                    </div>
-                                </div> 
-                               <div class="field is-grouped">
-                                    <p class="control">
-                                        <input class="button is-orange has-text-light is-rounded" type="submit" name="new-appointment-submit" value="Book Appointment">
-                                        <button class="button is-rounded" onclick="javascript:history.go(-1);return false;">Cancel</button>
-                                    </p>
-                                </div>
                             </form>
                         </div>
                     </div>
@@ -158,6 +200,12 @@
             </div> 
         </div>
     </div>
+    <script>
+        function modalToggle(modalName) {
+            var element = document.getElementById(`${modalName}-modal`);
+            element.classList.toggle("is-active");
+        }
+    </script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>  
@@ -169,10 +217,16 @@
                     speed: 300,
                     slidesToShow: 1,
                     adaptiveHeight: true,
-                    infinite: false
+                    infinite: false,
+                    draggable: false
                 });
 
-                 $("#calendar").datepicker({ beforeShowDay: $.datepicker.noWeekends });            
+                 $("#calendar").datepicker({ 
+                    beforeShowDay: $.datepicker.noWeekends, 
+                    inline: true,
+                    altField: '#d',
+                    altFormat: "yy-mm-dd" 
+                    });            
 
                 $(".search").autocomplete({
                     source: function(request, response){

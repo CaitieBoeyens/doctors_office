@@ -19,7 +19,8 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:700|Montserrat" rel="stylesheet">
         <link rel="stylesheet" type="text/css" media="screen" href="../css/main.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="../css/patients.css" />
-        <title>Patient</title>
+        <title>Patient</title>         
+        <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon">
     </head>
     <body>
         <?php include __DIR__.'/../fragments/navigation.php'; ?>

@@ -16,13 +16,17 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Lato:700|Montserrat" rel="stylesheet">
+        <link rel="stylesheet" href="../external/jquery-ui.min.css"/>
+        <link rel="stylesheet" href="../external/jquery-ui.theme.min.css"/>
+        <link rel="stylesheet" href="../external/selectize.js-master/dist/css/selectize.css"/>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/main.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="../css/doctors.css" />
-        <title>Doctor</title>
+        <title>Doctor</title>         
+        <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon">
     </head>
     <body>
         <?php include __DIR__.'/../fragments/navigation.php'; ?>
-        <?php include __DIR__.'/../fragments/appointment-form.php'; ?>
+        <?php /* include __DIR__.'/../fragments/assign_rooms.php'; */ ?>
         
         
         <div class="container main-con">
@@ -95,8 +99,8 @@
                         </div>
                     </div>
                     <div class="columns">
-                        <div class="column is-one-fifth is-offset-one-fifth">
-                            <a onclick="modalToggle('appointment')">
+                        <div class="column is-one-third is-offset-one-third">
+                            <a href="new_appointment.php">
                                 <figure class="has-text-centered">
                                     <p class="image plus">
                                         <img src="../assets/plus.svg">
@@ -109,8 +113,8 @@
                                 </figure>
                             </a>
                         </div>
-                        <div class="column is-one-fifth is-offset-one-fifth">
-                            <a href="../pages/new_patient.php">
+                       <!--  <div class="column is-one-fifth is-offset-one-fifth">
+                            <a onclick="modalToggle('room')">
                                 <figure class="has-text-centered">
                                     <p class="image plus">
                                         <img src="../assets/plus.svg">
@@ -122,7 +126,7 @@
                                     </p>
                                 </figure>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -133,6 +137,21 @@
             element.classList.toggle("is-active");
             }
         </script>
+        <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script> 
+        <script type="text/javascript" src="../external/selectize.js-master/dist/js/standalone/selectize.min.js"></script> 
+        <script>
+        $('#rooms').selectize({
+            maxItems: null,
+            valueField: 'id',
+            labelField: 'label',
+            searchField: 'label',
+            options: ,
+            items: [],
+            create: false
+        });
+        </script> -->
+
 
     </body>
 </html>

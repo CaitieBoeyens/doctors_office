@@ -18,7 +18,8 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:700|Montserrat" rel="stylesheet">
         <link rel="stylesheet" type="text/css" media="screen" href="../css/main.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="../css/appointment.css" />
-        <title>Document</title>
+        <title>Appointment</title>         
+        <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon">
     </head>
     <body>
         <?php include __DIR__.'/../fragments/navigation.php'; ?>

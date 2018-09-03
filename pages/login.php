@@ -6,7 +6,8 @@
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Home</title>
+        <title>Login</title>         
+        <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
@@ -34,7 +35,7 @@
                                         $icon = $icons[$field];
                                         $error = $errors[$field];
                                         $value = $_POST[$field];
-                                        include __DIR__.'/../fragments/form-field.php';
+                                        include __DIR__.'/../fragments/login-form-field.php';
                                     }
 
                             ?>

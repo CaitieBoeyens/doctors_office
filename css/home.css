@@ -8,3 +8,7 @@
     overflow-y: scroll;
     overflow-x: hidden;
 }
+
+td {
+    font-size: 0.8em;
+}

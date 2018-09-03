@@ -130,3 +130,17 @@ p {
 .slick-next.slick-disabled:before {
     display: none;
 }
+
+.slick-track:focus {
+    outline-color: #ffffff00;
+}
+
+.slick-slide,
+.slick-current,
+.slick-active {
+    outline-color: #ffffff00;
+}
+
+#d {
+    display: none;
+}

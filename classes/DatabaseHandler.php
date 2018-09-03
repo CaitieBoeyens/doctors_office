@@ -285,11 +285,26 @@
                     VALUES (:patient_id, :doctor_id, :room_id, :date, :time);";
 
             $statement = $this->pdo->prepare($sql);
-            $statement->bindValue(':patient_id', $patient['patient_id']);
-            $statement->bindValue(':doctor_id', $doctor['doctor_id']);
-            $statement->bindValue(':room_id', $appointment['room_id']);
-            $statement->bindValue(':date', $appointment['date']);
-            $statement->bindValue(':time', $appointment['time']);
+            $statement->bindValue(":patient_id", intval($patient['patient_id']));
+            $statement->bindValue(":doctor_id", intval($doctor['doctor_id']));
+            $statement->bindValue(":room_id", intval($appointment['room_id']));
+            $statement->bindValue(":date", $appointment['date']);
+            $statement->bindValue(":time", $appointment['time']);
+            $statement->execute();
+            $this->disconnect();
+            return true;
+        }
+
+         public function postPatient($patient) {
+            $this->connect();
+
+            $sql = "INSERT INTO patients(name, medical_aid, phone)
+                    VALUES (:name, :medical_aid, :phone);";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":name", $patient['patient_name']);
+            $statement->bindValue(":medical_aid", $patient['medical_aid']);
+            $statement->bindValue(":phone", $patient['phone']);
             $statement->execute();
             $this->disconnect();
             return true;
@@ -307,7 +322,7 @@
             $result = $statement->fetch();
 
             $this-> disconnect();
-            return $result[i];
+            return $result['i'];
         }
 
         public function findPatient($name) {
@@ -322,7 +337,21 @@
             $result = $statement->fetch();
 
             $this-> disconnect();
-            return $result[i];
+            return $result['i'];
+        }
+        public function findMedicalAid($number) {
+            $this->connect();
+
+            $sql = "SELECT COUNT(id) as i FROM patients WHERE patients.medical_aid = :number ";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement -> bindValue(":number" , $number);
+            $statement->execute();
+
+            $result = $statement->fetch();
+
+            $this-> disconnect();
+            return $result['i'];
         }
 
         public function findUser($email) {
@@ -337,7 +366,7 @@
             $result = $statement->fetch();
 
             $this-> disconnect();
-            return $result[i];
+            return $result['i'];
         }
 
         public function getUser($email){
