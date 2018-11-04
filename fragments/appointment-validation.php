@@ -74,7 +74,6 @@
 
     function getWeekday($date) {
         return date('w', strtotime($date));
-        //https://stackoverflow.com/questions/12835133/how-to-find-the-date-of-a-day-of-the-week-from-a-date-using-php
     }
 
     function validateDate($field){
