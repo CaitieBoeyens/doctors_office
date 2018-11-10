@@ -1,0 +1,108 @@
+label {
+    all: unset;
+}
+
+#select-submit {
+    margin-top: 1.5em;
+}
+
+.room-container {
+    margin-top: 2em;
+}
+
+.cc-selector input {
+    margin: 0;
+    padding: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.cc-selector input:active + .room-cc {
+    opacity: 1;
+}
+.cc-selector input:checked + .room-cc {
+    box-shadow: 2px 2px 10px 0 #0000008a;
+    background-color: #e74424ff !important;
+    box-sizing: border-box;
+    border: 3px solid #e74424ff;
+}
+
+.cc-selector input:checked + .room-cc * {
+    color: white !important;
+}
+.room-cc {
+    cursor: pointer;
+    display: block;
+}
+.room-cc:hover {
+    box-shadow: 1px 1px 10px 0 #00000041;
+}
+
+.cc-selector input {
+    margin: 0;
+    padding: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.cc-selector input:active + .doctor-cc {
+    opacity: 1;
+}
+.cc-selector input:checked + .doctor-cc {
+    -webkit-filter: none;
+    -moz-filter: none;
+    filter: none;
+}
+.doctor-cc {
+    cursor: pointer;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    -webkit-transition: all 100ms ease-in;
+    -moz-transition: all 100ms ease-in;
+    transition: all 100ms ease-in;
+    -webkit-filter: brightness(1) grayscale(0.5) opacity(0.7);
+    -moz-filter: brightness(1) grayscale(0.5) opacity(0.7);
+    filter: brightness(1) grayscale(0.5) opacity(0.7);
+}
+.doctor-cc:hover {
+    -webkit-filter: brightness(0.9) grayscale(0.2) opacity(0.9);
+    -moz-filter: brightness(0.9) grayscale(0.2) opacity(0.9);
+    filter: brightness(0.9) grayscale(0.2) opacity(0.9);
+}
+
+.is-blue-room {
+    box-sizing: border-box;
+    background-color: white;
+    border: 3px solid #4da5a1;
+}
+
+.is-orange-room {
+    box-sizing: border-box;
+    background-color: white;
+    border: 3px solid #e74424ff;
+}
+
+.is-blue-room-fill {
+    background-color: #4da5a1 !important;
+    box-sizing: border-box;
+    border: 3px solid #4da5a1;
+}
+
+.is-orange-room-fill {
+    background-color: #e74424ff !important;
+    box-sizing: border-box;
+    border: 3px solid #e74424ff;
+}
+
+.is-orange-room-fill * {
+    color: white !important;
+}
+
+.is-blue-room-fill * {
+    color: white !important;
+}

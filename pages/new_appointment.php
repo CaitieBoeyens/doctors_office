@@ -169,53 +169,36 @@
                                         <div class="field room">
                                             <label class="label">Room</label>
                                             <div class="control has-icons-left has-icons-right">
-                                                <div class="select">
-                                                    <select name="room_id" auto-focus="<?= $_POST['room_id'] ?>">
-                                                        <option value="">-</option>
+                                               
+                                                    <?php include __DIR__.'/../fragments/room-choice.php'; ?>
+                                                
+                                                <?php if(isset($errors['room_id'])):?>
+                                                <p class="help is-danger"><?= $errors['room_id'] ?>
+                                                </p>
+                                                <?php endif;?>
+                                                <?php if(isset($errors['rooms_2'])):?>
+                                                    <ul>
                                                     <?php 
-                                                        $rooms = $db -> getRoomsList();
-                                                        
-                                                        foreach($rooms as $room){
-                                                            $id = $room['id'];
-                                                            $floor_num = $room['floor_num'];
-                                                            $room_num = $room['room_num'];
-        
-                                                    ?>
-                                                        <option value="<?= $id ?>">Room: <?= $room_num ?>, Floor: <?= $floor_num ?></option>
-        
-                                                        <?php } ?>                
-                                                    </select>
-                                                </div>
-                                            <div class="icon is-small is-left">
-                                                <i class="fas fa-hospital-alt"></i>
-                                            </div>
-                                            <?php if(isset($errors['room_id'])):?>
-                                            <p class="help is-danger"><?= $errors['room_id'] ?>
+                                                            $rooms = $db -> getRoomsbyDoc($_POST['doctor_surname']);
+                                                            
+                                                            foreach($rooms as $room){
+                                                                $floor_num = $room['floor_num'];
+                                                                $room_num = $room['room_num'];
+
+                                                        ?>
+                                                            <li class="help is-danger">Room: <?= $room_num ?>, Floor: <?= $floor_num ?></li>
+
+                                                            <?php } ?>     
+                                                    </ul> 
+                                                <?php endif;?>
+                                            </div> 
+                                        </div>
+                                        <div class="field is-grouped">
+                                            <p class="control">
+                                                <input class="button is-orange has-text-light is-rounded" type="submit" name="new-appointment-submit" value="Book Appointment">
+                                                <button class="button is-rounded" onclick="javascript:history.go(-1);return false;">Cancel</button>
                                             </p>
-                                            <?php endif;?>
-                                            <?php if(isset($errors['rooms_2'])):?>
-                                                <ul>
-                                                <?php 
-                                                        $rooms = $db -> getRoomsbyDoc($_POST['doctor_surname']);
-                                                        
-                                                        foreach($rooms as $room){
-                                                            $floor_num = $room['floor_num'];
-                                                            $room_num = $room['room_num'];
-
-                                                    ?>
-                                                        <li class="help is-danger">Room: <?= $room_num ?>, Floor: <?= $floor_num ?></li>
-
-                                                        <?php } ?>     
-                                                </ul> 
-                                            <?php endif;?>
-                                        </div> 
-                                    </div>
-                                   <div class="field is-grouped">
-                                        <p class="control">
-                                            <input class="button is-orange has-text-light is-rounded" type="submit" name="new-appointment-submit" value="Book Appointment">
-                                            <button class="button is-rounded" onclick="javascript:history.go(-1);return false;">Cancel</button>
-                                        </p>
-                                    </div>
+                                        </div>
                                     </div>
                             
                             </form>
@@ -280,6 +263,24 @@
                         } */
                 });            
             });
+        </script>
+        <script>
+        $(function() {
+            $('.room-cc').hover(
+                
+
+                function(){
+                    if($(this).hasClass('is-orange-room') || $(this).hasClass('is-orange-room-fill')){
+                        $(this).toggleClass('is-orange-room-fill');
+                        $(this).toggleClass('is-orange-room');
+                    } else if($(this).hasClass('is-blue-room') || $(this).hasClass('is-blue-room-fill')){
+                        $(this).toggleClass('is-blue-room-fill');
+                        $(this).toggleClass('is-blue-room');
+                    }
+                }
+                
+            );
+        })
         </script>
     
 </body>

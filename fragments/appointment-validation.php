@@ -18,7 +18,7 @@
 
     $error_messages = array(
         'patient_name' => 'That patient is not registered, check your spelling or add a new patient',
-        'doctor_surname' => 'That doctor is not registered, please only enter their surnamem or check your spelling',
+        'doctor_surname' => 'That doctor is not registered, please only enter their surname or check your spelling',
         'date' => 'Select a date within business hours, we are only open on weekdays',
         'time' => ' We are open from 9am to 4pm and slots are booked on the hour every hour',
         'room_id' => 'The doctor you entered only uses the following rooms:',

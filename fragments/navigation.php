@@ -25,6 +25,10 @@
 					Patients
 				</a>
 	
+				<a class="navbar-item has-text-light" href="../pages/rooms.php">
+					Rooms
+				</a>
+
 				<a class="navbar-item has-text-light" href="../pages/appointments.php">
 					Appointments
 				</a>
@@ -38,6 +42,7 @@
 							$email = $user['email'];
 							$img = '../assets/'.$user['img_path'].'.png';
 					?>
+						
 						<img src="<?= $img ?>" id="user-icon">
 					</a>
 

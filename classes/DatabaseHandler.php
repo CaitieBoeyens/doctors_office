@@ -89,7 +89,7 @@
         }
         public function getDoctorRooms($id) {
             $this -> connect();
-            $sql = "SELECT rooms.room_num, rooms.floor_num
+            $sql = "SELECT rooms.room_num, rooms.floor_num, rooms.id
                     FROM rooms 
                     INNER JOIN doctors 
                     ON rooms.doc_id = doctors.id
@@ -276,7 +276,7 @@
                     FROM rooms 
                     INNER JOIN doctors 
                     ON rooms.doc_id = doctors.id
-                    WHERE doctors.last_name = :name;";
+                    WHERE doctors.last_name = :name";
 
             $statement = $this->pdo->prepare($sql);
             $statement->bindValue(":name", $name);
@@ -286,6 +286,24 @@
 
             $this->disconnect();
             return $rooms;
+        }
+
+        public function getDocbyRoom($id){
+            $this -> connect();
+
+            $sql = "SELECT rooms.id, doctors.last_name
+                    FROM rooms 
+                    INNER JOIN doctors
+                    ON rooms.doc_id = doctors.id
+                    WHERE rooms.id = :id";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":id", $id);
+            $statement->execute();
+            $doctor = $statement->fetch();
+
+            $this->disconnect();
+            return $doctor;
         }
 
         public function postAppointment($appointment) {
@@ -320,6 +338,28 @@
             $statement->execute();
             $this->disconnect();
             return true;
+        }
+
+        public function assignRoom($change){
+            $this->connect();
+
+            $sql = "SELECT id as doctor_id from doctors where doctors.last_name = :name";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":name", $change['doctor_surname']);
+            $statement->execute();
+
+            $doctor = $statement->fetch();
+
+            $sql = "UPDATE rooms SET doc_id = :doc_id WHERE id = :id";
+
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(":id", intval($change['room_id']));
+            $statement->bindValue(":doc_id", intval($doctor['doctor_id']));
+            $statement->execute();
+            $this->disconnect();
+            return true;
+            
         }
 
          public function editPassword($id, $password) {

@@ -61,7 +61,7 @@ p {
 
 .time-cc {
     cursor: pointer;
-    background-color: #5a9794ff;
+    background-color: #4da5a1;
     color: white;
     padding: 5px 10px;
     font-weight: 700;
@@ -108,14 +108,14 @@ p {
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
-    background-color: #5a9794ff;
-    border-color: #5a9794ff;
+    background-color: #4da5a1;
+    border-color: #4da5a1;
     color: #fff;
 }
 
 .slick-prev:before,
 .slick-next:before {
-    color: #5a9794ff;
+    color: #4da5a1;
 }
 
 .slick-next {
@@ -147,4 +147,57 @@ p {
 
 .room {
     margin-left: 20px;
+}
+
+.cc-selector input:active + .room-cc {
+    opacity: 1;
+}
+.cc-selector input:checked + .room-cc {
+    box-shadow: 2px 2px 10px 0 #0000008a;
+    background-color: #e74424ff !important;
+    box-sizing: border-box;
+    border: 3px solid #e74424ff;
+}
+
+.cc-selector input:checked + .room-cc * {
+    color: white !important;
+}
+.room-cc {
+    cursor: pointer;
+    display: block;
+}
+.room-cc:hover {
+    box-shadow: 1px 1px 10px 0 #00000041;
+}
+
+.is-blue-room {
+    box-sizing: border-box;
+    background-color: white;
+    border: 3px solid #4da5a1;
+}
+
+.is-orange-room {
+    box-sizing: border-box;
+    background-color: white;
+    border: 3px solid #e74424ff;
+}
+
+.is-blue-room-fill {
+    background-color: #4da5a1 !important;
+    box-sizing: border-box;
+    border: 3px solid #4da5a1;
+}
+
+.is-orange-room-fill {
+    background-color: #e74424ff !important;
+    box-sizing: border-box;
+    border: 3px solid #e74424ff;
+}
+
+.is-orange-room-fill * {
+    color: white !important;
+}
+
+.is-blue-room-fill * {
+    color: white !important;
 }

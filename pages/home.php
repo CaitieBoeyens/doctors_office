@@ -19,10 +19,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Lato:700|Montserrat" rel="stylesheet">
-        <link rel="stylesheet" href="../external/jquery-ui.min.css"/>
-        <link rel="stylesheet" href="../external/jquery-ui.theme.min.css"/>
+        
         <link rel="stylesheet" type="text/css" media="screen" href="../css/main.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="../css/home.css" />
+
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script> 
+        <script src="../external/__jquery.tablesorter/jquery.tablesorter.min.js"></script>
     </head>
     <body>
         <?php include __DIR__.'/../fragments/navigation.php'; ?>
@@ -205,8 +208,7 @@
             element.classList.toggle("is-active");
         }
         </script>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script> 
+        
         
         <script type="text/javascript">
             $(function() {             
@@ -236,9 +238,16 @@
                             var thehtml = `<a class="button is-rounded orange-btn has-text-light"  href='patient.php?id=${ui.item.id}'>Go to ${ui.item.label}'s page</a>`;
                             $('#outputcontent').html(thehtml);
                         }
-                }); 
-                $("#appointments").tablesorter({sortList: [[0,0], [1,0]]});            
+                });        
             });
+        </script>
+
+        <script>
+        $(document).ready(function() 
+            { 
+                $("#appointments").tablesorter({sortList: [[0,0], [1,0]]}); 
+            } 
+        ); 
         </script>
 
         <!-- <?php 
